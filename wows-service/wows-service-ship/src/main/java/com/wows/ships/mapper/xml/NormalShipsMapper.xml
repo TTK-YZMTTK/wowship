@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wows.ships.mapper.NormalShipsMapper">
+
+
+    <!-- sql语句：根据船名筛选船只信息,这里的字段名要和实体VO类里面的一样，但是Vo里面不带下划线-->
+    <select id="getShipInfo" resultType="com.wows.ships.entity.vo.ShipVo">
+        SELECT sp.name, sp.grade, sp.hp, sp.price, sp.exp, asp.name parent_name
+        FROM normal_ships sp
+                 LEFT OUTER JOIN all_ships asp ON sp.parent_id = asp.id
+        where sp.name = #{name}
+        ORDER BY grade
+    </select>
+
+    <select id="getNormalShipInfo" resultType="com.wows.commonutils.ordervo.ShipVoOrder">
+        SELECT ns.id, ns.name, ns.grade, ns.hp, ns.price, ns.description, asp.type
+        FROM normal_ships ns
+                 LEFT OUTER JOIN all_ships asp ON ns.id = asp.id
+        WHERE ns.id = #{shipId};
+    </select>
+
+
+</mapper>

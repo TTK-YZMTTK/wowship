@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wows.ships.mapper.GoldShipsMapper">
+
+    <select id="getGoldShipInfo" resultType="com.wows.commonutils.ordervo.ShipVoOrder">
+        SELECT gs.id, gs.name, gs.grade, gs.hp, gs.price, gs.description, asp.type
+        FROM gold_ships gs
+                 LEFT OUTER JOIN all_ships asp ON gs.id = asp.id
+        WHERE gs.id = #{shipId};
+    </select>
+
+
+</mapper>
